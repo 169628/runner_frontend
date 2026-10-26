@@ -1,0 +1,110 @@
+@import 'tailwindcss';
+
+/* Design tokens：與 COLOR_GUIDE.md、設計稿 pacer.pen 的 variables 對應 */
+@theme {
+  --color-bg: #fbf7f2;
+  --color-surface: #ffffff;
+  --color-surface-2: #f1ebe3;
+  --color-line: #e8dfd4;
+  --color-paper: #f5ede6;
+  --color-ink: #2f2b28;
+  --color-ink-2: #6f6760;
+  --color-text-lo: #6b625b;
+  --color-accent: #4a6f5c;
+  --color-accent-soft: #e4ede6;
+  --color-accent-muted: #a9c4b6;
+  --color-heart: #d9806b;
+  --color-heart-soft: #f7e3dd;
+  --color-heart-ink: #9c4430;
+  --color-sleep: #8c9bd6;
+  --color-sleep-soft: #e6e9f7;
+  --color-sleep-ink: #4a5899;
+  --color-warn: #b9842f;
+  --color-warn-soft: #f6ecd9;
+  --color-warn-ink: #7a5418;
+  --color-danger: #b5543f;
+
+  --font-display: 'Outfit', system-ui, sans-serif;
+  --font-heading: 'Noto Serif TC', serif;
+  --font-body: 'Noto Sans TC', system-ui, sans-serif;
+}
+
+@layer base {
+  html {
+    background-color: var(--color-bg);
+  }
+
+  body {
+    font-family: var(--font-body);
+    color: var(--color-ink);
+    background-color: var(--color-bg);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  button:not(:disabled),
+  [role='button']:not(:disabled) {
+    cursor: pointer;
+  }
+}
+
+@layer components {
+  /* 按鈕 */
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-full text-sm font-bold whitespace-nowrap transition-colors disabled:cursor-not-allowed;
+  }
+  .btn-primary {
+    @apply bg-accent text-white hover:bg-[#3e5f4e] disabled:bg-accent/40;
+  }
+  .btn-dark {
+    @apply bg-ink text-white hover:bg-black;
+  }
+  .btn-outline {
+    @apply border border-line bg-surface text-ink hover:bg-paper;
+  }
+  .btn-danger {
+    @apply bg-danger text-white hover:bg-[#9f4835];
+  }
+
+  /* 表單 */
+  .field-label {
+    @apply mb-2 block text-[13px] font-bold text-ink;
+  }
+  .field-hint {
+    @apply mt-2 text-xs text-text-lo;
+  }
+  .field-error {
+    @apply mt-2 flex items-center gap-[6px] text-xs text-danger;
+  }
+  .input-box {
+    @apply flex h-12 w-full items-center gap-[10px] rounded-xl border border-line bg-surface px-4 text-[15px] text-ink transition-colors focus-within:border-accent;
+  }
+  .input-box input,
+  .input-box select {
+    @apply h-full w-full min-w-0 flex-1 bg-transparent outline-none placeholder:text-text-lo;
+  }
+  .input-box.is-error {
+    @apply border-danger;
+  }
+  /* 日期欄位：隱藏瀏覽器原生的日曆圖示，改成整個欄位都可點開日期選擇器 */
+  .input-box:has(input[type='date']) {
+    position: relative;
+  }
+  .input-box input[type='date']::-webkit-calendar-picker-indicator {
+    position: absolute;
+    inset: 0;
+    width: auto;
+    height: auto;
+    opacity: 0;
+    cursor: pointer;
+  }
+
+  /* 卡片 */
+  .card {
+    @apply rounded-[20px] border border-line bg-surface;
+  }
+
+  /* 標籤 */
+  .chip {
+    @apply inline-flex items-center rounded-full bg-surface-2 px-[10px] py-1 font-display text-xs font-medium text-ink-2;
+  }
+}
